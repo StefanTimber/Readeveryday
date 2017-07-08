@@ -11,7 +11,7 @@ import java.util.Date;
 
 public class DateUtil {
 
-//    private static Calendar c = Calendar.getInstance();
+    //    private static Calendar c = Calendar.getInstance();
     private static SimpleDateFormat sim = new SimpleDateFormat("yyyyMMdd");
 
     public static String getToday() {

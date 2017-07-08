@@ -1,6 +1,5 @@
 package com.example.android.readeveryday;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -16,21 +15,24 @@ import com.example.android.readeveryday.UI.ArticleFragmentPagerAdapter;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Context mContext = this;
     private ViewPager viewPager;
     private TabLayout tabLayout;
     private Toolbar toolbar;
+    private boolean nightMode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        nightMode = MyApplication.getNightMode();
         initView();
         setSupportActionBar(toolbar);
+        toolbar.setTitle("美阅");
         ArticleFragmentPagerAdapter adapter = new ArticleFragmentPagerAdapter(getSupportFragmentManager(), this);
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.setTabMode(TabLayout.MODE_FIXED);
+
     }
 
     private void initView() {
@@ -40,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu){
+    public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
@@ -48,9 +50,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.history:
-                Intent intent = new Intent(this, HistoryActivity.class);
-                startActivity(intent);
+            case R.id.favourite:
+                startActivity(new Intent(this, FavouriteActivity.class));
+                break;
+            case R.id.settings:
+                startActivity(new Intent(this, SettingsActivity.class));
                 break;
             case R.id.about:
                 launchDialog();
@@ -59,8 +63,19 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    public void launchDialog(){
+    public void launchDialog() {
         DialogFragment dialogFragment = new AboutDialogFragment();
+        dialogFragment.setStyle(DialogFragment.STYLE_NORMAL, 0);
         dialogFragment.show(getSupportFragmentManager(), "about");
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (this.nightMode != MyApplication.getNightMode()) {
+            MyApplication.setRecreate(true);
+            this.recreate();
+        }
+    }
+
 }

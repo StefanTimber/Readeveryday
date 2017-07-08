@@ -17,38 +17,37 @@ import java.util.List;
  * Created by XF on 2017/5/27.
  */
 
-public class HistoryArticleAdapter extends RecyclerView.Adapter<HistoryArticleAdapter.ViewHolder> {
+public class FavouriteArticleAdapter extends RecyclerView.Adapter<FavouriteArticleAdapter.ViewHolder> {
     private List<Data> mlist;
 
-    static class ViewHolder extends  RecyclerView.ViewHolder{
-        View historyView;
-        TextView historyTitle;
-        TextView historyAuthor;
+    static class ViewHolder extends RecyclerView.ViewHolder {
+        View favouriteView;
+        TextView favouriteTitle;
+        TextView FavouriteAuthor;
 
-        public ViewHolder(View view) {
+        private ViewHolder(View view) {
             super(view);
-            historyView = view;
-            historyTitle = (TextView) view.findViewById(R.id.history_title);
-            historyAuthor = (TextView) view.findViewById(R.id.history_author);
+            favouriteView = view;
+            favouriteTitle = (TextView) view.findViewById(R.id.favourite_title);
+            FavouriteAuthor = (TextView) view.findViewById(R.id.favourite_author);
         }
     }
 
-    public HistoryArticleAdapter(List<Data> list) {
+    public FavouriteArticleAdapter(List<Data> list) {
         mlist = list;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).
-                inflate(R.layout.history_item, parent, false);
+                inflate(R.layout.favourite_item, parent, false);
         final ViewHolder holder = new ViewHolder(view);
-        holder.historyView.setOnClickListener(new View.OnClickListener() {
+        holder.favouriteView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View V) {
                 int position = holder.getAdapterPosition();
                 Data data = mlist.get(position);
-                Data.DateChain dateChain = data.dateChain;
-                String date = dateChain.curr;
+                String date = data.dateChain.curr;
                 Intent intent = new Intent(V.getContext(), DetailActivity.class);
                 intent.putExtra("date", date);
                 V.getContext().startActivity(intent);
@@ -60,8 +59,8 @@ public class HistoryArticleAdapter extends RecyclerView.Adapter<HistoryArticleAd
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Data data = mlist.get(position);
-        holder.historyTitle.setText(data.title);
-        holder.historyAuthor.setText(data.author);
+        holder.favouriteTitle.setText(data.title);
+        holder.FavouriteAuthor.setText(data.author);
     }
 
     @Override

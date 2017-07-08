@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.android.readeveryday.DetailActivity">
+    tools:context="com.example.android.readeveryday.DetailActivity"
+    android:background="@color/backgroundColor">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -14,6 +15,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorPrimary"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:elevation="3dp"
             app:layout_scrollFlags="scroll|enterAlways|snap"
@@ -24,6 +26,6 @@
         android:id="@+id/detail"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 </android.support.design.widget.CoordinatorLayout>

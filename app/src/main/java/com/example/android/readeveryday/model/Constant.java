@@ -9,8 +9,4 @@ public class Constant {
     // baseUrl
     public final static String BASE_URL = "https://interface.meiriyiwen.com/article/";
 
-//    // type of fragment
-//    public final static int TYPE_DATE = 1;
-//    public final static int TYPE_RANDOM = 2;
-//    public final static int TYPE_HISTORY = 3;
 }

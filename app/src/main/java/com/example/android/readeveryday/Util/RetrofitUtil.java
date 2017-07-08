@@ -31,7 +31,7 @@ public class RetrofitUtil {
             call = service.getTargetArticle(1, date);
         }
 
-       return call;
+        return call;
     }
 
 

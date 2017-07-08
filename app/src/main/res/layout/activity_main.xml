@@ -17,11 +17,10 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/colorPrimary"
-            app:elevation="3dp"
             app:layout_scrollFlags="scroll|enterAlways|snap"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            app:popupTheme="@style/MyPopupTheme"
             app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            app:title="每日一文" />
+            app:title="美阅" />
 
         <android.support.design.widget.TabLayout
             android:id="@+id/tab_layout"
@@ -29,7 +28,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAllCaps="false"
-            app:elevation="3dp" />
+            app:elevation="8dp"
+            app:layout_scrollFlags="scroll|enterAlways" />
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.view.ViewPager
