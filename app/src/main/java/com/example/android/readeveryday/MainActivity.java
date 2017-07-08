@@ -1,7 +1,10 @@
 package com.example.android.readeveryday;
 
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.view.ViewPager;
@@ -9,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.example.android.readeveryday.UI.AboutDialogFragment;
 import com.example.android.readeveryday.UI.ArticleFragmentPagerAdapter;
@@ -32,7 +36,14 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.setTabMode(TabLayout.MODE_FIXED);
-
+        if (!isNetworkConnected()) {
+            Snackbar.make(tabLayout, "网络连接不可用", Snackbar.LENGTH_INDEFINITE).setAction("重试", new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    recreate();
+                }
+            }).show();
+        }
     }
 
     private void initView() {
@@ -78,4 +89,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public boolean isNetworkConnected() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) this.getSystemService(CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        return networkInfo != null && networkInfo.isAvailable();
+    }
 }

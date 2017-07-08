@@ -163,4 +163,5 @@ public class ArticleFragment extends Fragment {
             like.setChecked(false);
         }
     }
+
 }
