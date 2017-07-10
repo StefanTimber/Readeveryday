@@ -4,14 +4,20 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.GestureDetectorCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.GestureDetector;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
 
 import com.example.android.readeveryday.UI.ArticleFragment;
 
 public class DetailActivity extends AppCompatActivity {
+
+    GestureDetectorCompat gestureDetector;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +36,20 @@ public class DetailActivity extends AppCompatActivity {
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.replace(R.id.detail, ArticleFragment.newInstance(date));
         transaction.commit();
+        toolbar.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return gestureDetector.onTouchEvent(event);
+            }
+        });
+        gestureDetector = new GestureDetectorCompat(this, new GestureDetector.SimpleOnGestureListener() {
+            @Override
+            public boolean onDoubleTap(MotionEvent e) {
+                ArticleFragment fragment = (ArticleFragment) getSupportFragmentManager().findFragmentById(R.id.detail);
+                fragment.scrollToUp();
+                return super.onDoubleTap(e);
+            }
+        });
     }
 
     @Override

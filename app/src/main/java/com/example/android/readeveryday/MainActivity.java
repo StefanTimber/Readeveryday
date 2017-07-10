@@ -7,14 +7,18 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.view.GestureDetectorCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 
 import com.example.android.readeveryday.UI.AboutDialogFragment;
+import com.example.android.readeveryday.UI.ArticleFragment;
 import com.example.android.readeveryday.UI.ArticleFragmentPagerAdapter;
 
 public class MainActivity extends AppCompatActivity {
@@ -23,6 +27,8 @@ public class MainActivity extends AppCompatActivity {
     private TabLayout tabLayout;
     private Toolbar toolbar;
     private boolean nightMode;
+    private GestureDetectorCompat gestureDetector;
+    private ArticleFragmentPagerAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         initView();
         setSupportActionBar(toolbar);
         toolbar.setTitle("美阅");
-        ArticleFragmentPagerAdapter adapter = new ArticleFragmentPagerAdapter(getSupportFragmentManager(), this);
+        adapter = new ArticleFragmentPagerAdapter(getSupportFragmentManager(), this);
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.setTabMode(TabLayout.MODE_FIXED);
@@ -44,6 +50,20 @@ public class MainActivity extends AppCompatActivity {
                 }
             }).show();
         }
+        toolbar.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return gestureDetector.onTouchEvent(event);
+            }
+        });
+        gestureDetector = new GestureDetectorCompat(this, new GestureDetector.SimpleOnGestureListener() {
+            @Override
+            public boolean onDoubleTap(MotionEvent e) {
+                ArticleFragment fragment = (ArticleFragment) adapter.getCurrentFragment();
+                fragment.scrollToUp();
+                return super.onDoubleTap(e);
+            }
+        });
     }
 
     private void initView() {

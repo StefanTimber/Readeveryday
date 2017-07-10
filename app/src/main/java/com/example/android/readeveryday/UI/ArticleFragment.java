@@ -3,6 +3,7 @@ package com.example.android.readeveryday.UI;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,6 +38,8 @@ public class ArticleFragment extends Fragment {
     private SwipeRefreshLayout swipeRefresh;
     private ToggleButton like;
     private Data data;
+    private NestedScrollView scrollView;
+    boolean firstInit;
 
     public static ArticleFragment newInstance(String date) {
         Bundle args = new Bundle();
@@ -56,6 +59,7 @@ public class ArticleFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.article_fragment, container, false);
         like = (ToggleButton) view.findViewById(R.id.like);
+        scrollView = (NestedScrollView) view.findViewById(R.id.scrollView);
         swipeRefresh = (SwipeRefreshLayout) view.findViewById(R.id.swipe_refresh);
         swipeRefresh.setRefreshing(true);
         initView();
@@ -112,14 +116,21 @@ public class ArticleFragment extends Fragment {
 
     // 若是因夜间模式重建的，从缓存中读取上次destroy保存的数据，保证数据不变，否则从服务器获取新数据
     public void initView() {
+
+        // 若是重建随机页面，从缓存读取数据
         if (MyApplication.getRecreate() && "".equals(mDate)) {
             String jsonData = SharedprefUtil.getTemp(view.getContext());
             data = new Gson().fromJson(jsonData, Data.class);
             refresh(data);
             swipeRefresh.setRefreshing(false);
             MyApplication.setRecreate(false);
-        }
-        else {
+        } else {
+            // 若是随机页面并已有数据，保存到缓存中
+            if (data != null && "".equals(mDate)) {
+                SharedprefUtil.setTemp(view.getContext(), new Gson().toJson(data));
+            }
+            // 确定是否第一次刷新
+            firstInit = (data == null) ;
             Call<Article> call = RetrofitUtil.initRetrofit(mDate);
             call.enqueue(new Callback<Article>() {
                 @Override
@@ -128,6 +139,9 @@ public class ArticleFragment extends Fragment {
                     try {
                         data = art.data;
                         refresh(data);
+                        if (!firstInit && "".equals(mDate)) {
+                            showIfRandom();  //若不是第一次刷新且为随机页面，提供撤销功能
+                        }
                     } catch (NullPointerException e) {
                         e.printStackTrace();
                         Toast.makeText(view.getContext(), "请稍后再试！", Toast.LENGTH_SHORT).show();
@@ -149,8 +163,8 @@ public class ArticleFragment extends Fragment {
         TextView titleView = (TextView) view.findViewById(R.id.title);
         TextView authorView = (TextView) view.findViewById(R.id.author);
         TextView contentView = (TextView) view.findViewById(R.id.content);
-        titleView.setText((data.title));
-        authorView.setText(data.author);
+        titleView.setText(ParseHtml.fromHtml(data.title));
+        authorView.setText(ParseHtml.fromHtml(data.author));
         contentView.setText(ParseHtml.fromHtml(data.content));
         updateLikeState(data.dateChain.curr);
     }
@@ -164,4 +178,20 @@ public class ArticleFragment extends Fragment {
         }
     }
 
+    public void scrollToUp() {
+        scrollView.fullScroll(View.FOCUS_UP);
+    }
+
+    public void showIfRandom() {
+        Snackbar.make(view, "获取了一篇新文章", Snackbar.LENGTH_SHORT)
+                .setAction("撤销", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String jsonData = SharedprefUtil.getTemp(view.getContext());
+                        data = new Gson().fromJson(jsonData, Data.class);
+                        refresh(data);
+                    }
+                })
+                .show();
+    }
 }

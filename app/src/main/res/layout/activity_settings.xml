@@ -57,7 +57,7 @@
             android:layout_height="24dp"
             android:layout_marginBottom="12dp"
             android:gravity="center_vertical"
-            android:text="1.1"
+            android:text="@string/app_version"
             android:textColor="#757575"
             android:textSize="16sp" />
 
