@@ -5,6 +5,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +21,11 @@ import com.example.android.readeveryday.Util.RetrofitUtil;
 import com.example.android.readeveryday.Util.SharedprefUtil;
 import com.example.android.readeveryday.model.Article;
 import com.example.android.readeveryday.model.Data;
+import com.example.android.readeveryday.widget.JustifyTextView;
 import com.google.gson.Gson;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -162,11 +167,21 @@ public class ArticleFragment extends Fragment {
     public void refresh(Data data) {
         TextView titleView = (TextView) view.findViewById(R.id.title);
         TextView authorView = (TextView) view.findViewById(R.id.author);
-        TextView contentView = (TextView) view.findViewById(R.id.content);
+        JustifyTextView contentView = (JustifyTextView) view.findViewById(R.id.content);
         titleView.setText(ParseHtml.fromHtml(data.title));
         authorView.setText(ParseHtml.fromHtml(data.author));
-        contentView.setText(ParseHtml.fromHtml(data.content));
+        contentView.setText((ParseHtml.fromHtml(indent(data.content))));
         updateLikeState(data.dateChain.curr);
+    }
+
+    // 对正文进行首行缩进处理
+    public String indent(String content) {
+        Pattern p =Pattern.compile("<p>");
+        Matcher m =p.matcher(content);
+        content = m.replaceAll("<p>\u3000\u3000");
+        Log.d("content", content);
+        return content;
+
     }
 
     // 判断是否在收藏中，并更新like按钮状态

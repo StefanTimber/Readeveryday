@@ -61,12 +61,14 @@
                     android:textSize="16sp"
                     tools:text="作者" />
 
-                <TextView
+                <com.example.android.readeveryday.widget.JustifyTextView
                     android:id="@+id/content"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:lineSpacingMultiplier="1.5"
-                    android:padding="12dp"
+                    android:lineSpacingMultiplier="1.3"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginRight="12dp"
+                    android:layout_marginTop="12dp"
                     android:textColor="@color/textColor"
                     android:textSize="18sp"
                     tools:text="这是很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长的正文。" />
