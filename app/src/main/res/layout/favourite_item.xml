@@ -3,8 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="1dp"
-    android:background="@color/backgroundColor">
+    android:id="@+id/list_item">
 
     <TextView
         android:id="@+id/favourite_author"
@@ -29,4 +28,10 @@
         android:textColor="@color/textColor"
         android:textSize="18sp"
         tools:text="文章标题" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
+        android:background="#1F000000"/>
 </RelativeLayout>

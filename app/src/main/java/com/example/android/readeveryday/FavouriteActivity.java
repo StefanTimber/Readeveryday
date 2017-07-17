@@ -1,6 +1,8 @@
 package com.example.android.readeveryday;
 
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -52,6 +54,13 @@ public class FavouriteActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();
         if (nightMode != MyApplication.getNightMode()) {
             this.recreate();
+        }
+        if (!MyApplication.getNightMode()) {
+            String color = SharedprefUtil.getBackground(this);
+            if (color != null) {
+                CoordinatorLayout coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinatorLayout);
+                coordinatorLayout.setBackgroundColor(Color.parseColor(color));
+            }
         }
     }
 

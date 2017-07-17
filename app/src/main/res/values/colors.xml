@@ -3,9 +3,11 @@
     <color name="colorPrimary">#a1b3c1</color>
     <color name="colorPrimaryDark">#76899a</color>
     <color name="colorAccent">#bdc698</color>
-    <color name="textColor">#000000</color>
+    <color name="textColor">#DE000000</color>
     <color name="backgroundColor">#EDE7DA</color>
 
+
+    <color name="background_green">#bcd5bf</color>
     <!--<color name="colorPrimary">#009688</color>-->
     <!--<color name="colorPrimaryDark">#00796B</color>-->
     <!--<color name="colorAccent">#CDDC39</color>-->

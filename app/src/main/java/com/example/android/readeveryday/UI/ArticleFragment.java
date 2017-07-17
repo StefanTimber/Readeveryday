@@ -1,5 +1,6 @@
 package com.example.android.readeveryday.UI;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -103,11 +104,22 @@ public class ArticleFragment extends Fragment {
         return view;
     }
 
+    // onResume中需要更新收藏状态、设置字号、设置背景色
     @Override
     public void onResume() {
         super.onResume();
         if (data != null) {
             updateLikeState(data.dateChain.curr);
+        }
+        int textSize = SharedprefUtil.getTextSize(view.getContext());
+        if (textSize != 0) {
+            setTextSize(textSize);
+        }
+        if (!MyApplication.getNightMode()) {
+            String color = SharedprefUtil.getBackground(view.getContext());
+            if (color != null) {
+                scrollView.setBackgroundColor(Color.parseColor(color));
+            }
         }
     }
 
@@ -135,7 +147,7 @@ public class ArticleFragment extends Fragment {
                 SharedprefUtil.setTemp(view.getContext(), new Gson().toJson(data));
             }
             // 确定是否第一次刷新
-            firstInit = (data == null) ;
+            firstInit = (data == null);
             Call<Article> call = RetrofitUtil.initRetrofit(mDate);
             call.enqueue(new Callback<Article>() {
                 @Override
@@ -174,10 +186,19 @@ public class ArticleFragment extends Fragment {
         updateLikeState(data.dateChain.curr);
     }
 
+    public void setTextSize(int size) {
+        TextView titleView = (TextView) view.findViewById(R.id.title);
+        TextView authorView = (TextView) view.findViewById(R.id.author);
+        JustifyTextView contentView = (JustifyTextView) view.findViewById(R.id.content);
+        titleView.setTextSize(size + 2);
+        authorView.setTextSize(size - 2);
+        contentView.setTextSize(size);
+    }
+
     // 对正文进行首行缩进处理
     public String indent(String content) {
-        Pattern p =Pattern.compile("<p>");
-        Matcher m =p.matcher(content);
+        Pattern p = Pattern.compile("<p>");
+        Matcher m = p.matcher(content);
         content = m.replaceAll("<p>\u3000\u3000");
         Log.d("content", content);
         return content;
