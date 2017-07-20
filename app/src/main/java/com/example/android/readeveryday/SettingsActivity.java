@@ -1,6 +1,8 @@
 package com.example.android.readeveryday;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +14,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.android.readeveryday.Util.SharedprefUtil;
 
@@ -24,10 +28,15 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
     private Button textSize_medium;
     private Button textSize_large;
     private SwitchCompat nightModeSwitch;
+    private TextView rating;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+
+        rating = (TextView)findViewById(R.id.rating);
+        rating.setOnClickListener(this);
 
         background_white = (ImageButton) findViewById(R.id.background_white);
         background_white.setOnClickListener(this);
@@ -124,6 +133,16 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
                 textSize_small.setSelected(false);
                 textSize_medium.setSelected(false);
                 break;
+            case R.id.rating:
+                try {
+                    Uri uri = Uri.parse("market://details?id=" + getPackageName());
+                    Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                } catch (Exception e) {
+                    Toast.makeText(this, "未安装应用市场", Toast.LENGTH_SHORT).show();
+                    e.printStackTrace();
+                }
         }
     }
 

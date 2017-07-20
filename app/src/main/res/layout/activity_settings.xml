@@ -17,6 +17,15 @@
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="16dp"
+        android:paddingTop="16dp"
+        android:text="通用"
+        android:textColor="#3f51b5"
+        android:textSize="14sp" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -45,8 +54,8 @@
             android:focusable="true"
             android:gravity="center"
             android:text="小"
-            android:textSize="16sp"
-            android:textColor="#de000000"/>
+            android:textColor="#de000000"
+            android:textSize="16sp" />
 
         <Button
             android:id="@+id/textsize_medium"
@@ -57,8 +66,8 @@
             android:background="@drawable/selector_textsize"
             android:focusable="true"
             android:text="中"
-            android:textSize="18sp"
-            android:textColor="#de000000"/>
+            android:textColor="#de000000"
+            android:textSize="18sp" />
 
         <Button
             android:id="@+id/textsize_large"
@@ -68,8 +77,8 @@
             android:background="@drawable/selector_textsize"
             android:focusable="true"
             android:text="大"
-            android:textSize="20sp"
-            android:textColor="#de000000"/>
+            android:textColor="#de000000"
+            android:textSize="20sp" />
 
 
     </LinearLayout>
@@ -139,10 +148,31 @@
         android:id="@+id/nightmode_switch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
         android:padding="16dp"
         android:text="夜间模式"
         android:textColor="#DE000000"
         android:textSize="16sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="16dp"
+        android:paddingTop="24dp"
+        android:text="其它"
+        android:textColor="#3f51b5"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/rating"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:text="给个好评"
+        android:clickable="true"
+        android:background="?attr/selectableItemBackground"
+        android:textSize="16sp"
+        android:textColor="#DE000000"/>
 
     <View
         android:layout_width="match_parent"
