@@ -1,8 +1,10 @@
 package com.example.android.readeveryday.UI;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.text.method.LinkMovementMethod;
@@ -20,11 +22,12 @@ import com.example.android.readeveryday.R;
 
 public class AboutDialogFragment extends DialogFragment {
 
+    @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.dialog, null);
+        @SuppressLint("InflateParams") View view = inflater.inflate(R.layout.dialog, null);
         builder.setView(view)
                 .setPositiveButton("关闭", new DialogInterface.OnClickListener() {
                     @Override
@@ -47,8 +50,10 @@ public class AboutDialogFragment extends DialogFragment {
     public void onStart() {
         super.onStart();
         Window window = getDialog().getWindow();
-        WindowManager.LayoutParams params = window.getAttributes();
-        params.width = (int) (getResources().getDisplayMetrics().widthPixels * 0.75);
-        window.setAttributes(params);
+        if (window != null) {
+            WindowManager.LayoutParams params = window.getAttributes();
+            params.width = (int) (getResources().getDisplayMetrics().widthPixels * 0.75);
+            window.setAttributes(params);
+        }
     }
 }

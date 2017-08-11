@@ -17,7 +17,7 @@ import com.example.android.readeveryday.UI.ArticleFragment;
 
 public class DetailActivity extends AppCompatActivity {
 
-    GestureDetectorCompat gestureDetector;
+    private GestureDetectorCompat gestureDetector;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

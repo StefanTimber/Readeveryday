@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    public void launchDialog() {
+    private void launchDialog() {
         DialogFragment dialogFragment = new AboutDialogFragment();
         dialogFragment.setStyle(DialogFragment.STYLE_NORMAL, 0);
         dialogFragment.show(getSupportFragmentManager(), "about");
@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public boolean isNetworkConnected() {
+    private boolean isNetworkConnected() {
         ConnectivityManager connectivityManager = (ConnectivityManager) this.getSystemService(CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
         return networkInfo != null && networkInfo.isAvailable();

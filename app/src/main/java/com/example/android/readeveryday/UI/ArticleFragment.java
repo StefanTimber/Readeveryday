@@ -39,13 +39,13 @@ import retrofit2.Response;
 public class ArticleFragment extends Fragment {
 
     private View view;
-    public static final String DATE = "DATE";
+    private static final String DATE = "DATE";
     private String mDate;
     private SwipeRefreshLayout swipeRefresh;
     private ToggleButton like;
     private Data data;
     private NestedScrollView scrollView;
-    boolean firstInit;
+    private boolean firstInit;
 
     public static ArticleFragment newInstance(String date) {
         Bundle args = new Bundle();
@@ -132,7 +132,7 @@ public class ArticleFragment extends Fragment {
     }
 
     // 若是因夜间模式重建的，从缓存中读取上次destroy保存的数据，保证数据不变，否则从服务器获取新数据
-    public void initView() {
+    private void initView() {
 
         // 若是重建随机页面，从缓存读取数据
         if (MyApplication.getRecreate() && "".equals(mDate)) {
@@ -176,7 +176,7 @@ public class ArticleFragment extends Fragment {
         }
     }
 
-    public void refresh(Data data) {
+    private void refresh(Data data) {
         TextView titleView = (TextView) view.findViewById(R.id.title);
         TextView authorView = (TextView) view.findViewById(R.id.author);
         JustifyTextView contentView = (JustifyTextView) view.findViewById(R.id.content);
@@ -186,7 +186,7 @@ public class ArticleFragment extends Fragment {
         updateLikeState(data.dateChain.curr);
     }
 
-    public void setTextSize(int size) {
+    private void setTextSize(int size) {
         TextView titleView = (TextView) view.findViewById(R.id.title);
         TextView authorView = (TextView) view.findViewById(R.id.author);
         JustifyTextView contentView = (JustifyTextView) view.findViewById(R.id.content);
@@ -196,7 +196,7 @@ public class ArticleFragment extends Fragment {
     }
 
     // 对正文进行首行缩进处理
-    public String indent(String content) {
+    private String indent(String content) {
         Pattern p = Pattern.compile("<p>");
         Matcher m = p.matcher(content);
         content = m.replaceAll("<p>\u3000\u3000");
@@ -206,7 +206,7 @@ public class ArticleFragment extends Fragment {
     }
 
     // 判断是否在收藏中，并更新like按钮状态
-    public void updateLikeState(String date) {
+    private void updateLikeState(String date) {
         if (SharedprefUtil.contains(view.getContext(), date)) {
             like.setChecked(true);
         } else {
@@ -218,7 +218,7 @@ public class ArticleFragment extends Fragment {
         scrollView.fullScroll(View.FOCUS_UP);
     }
 
-    public void showIfRandom() {
+    private void showIfRandom() {
         Snackbar.make(view, "获取了一篇新文章", Snackbar.LENGTH_SHORT)
                 .setAction("撤销", new View.OnClickListener() {
                     @Override

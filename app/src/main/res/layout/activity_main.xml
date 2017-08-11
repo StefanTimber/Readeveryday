@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:textAllCaps="false"
             app:elevation="8dp"
-            app:layout_scrollFlags="scroll|enterAlways" />
+            app:layout_scrollFlags="scroll|enterAlways|snap" />
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.view.ViewPager

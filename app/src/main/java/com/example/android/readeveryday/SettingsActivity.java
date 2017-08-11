@@ -147,7 +147,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
     }
 
     // 选择背景色时先取消夜间模式，然后保存背景色
-    public void backgroundChange(String color) {
+    private void backgroundChange(String color) {
         if (nightModeSwitch.isChecked()) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
             SharedprefUtil.setNightMode(this, false);
@@ -158,7 +158,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
     }
 
     // 设置初始背景按钮状态
-    public void initBackground() {
+    private void initBackground() {
         String color = SharedprefUtil.getBackground(this);
         if (color != null) {
             switch (color) {
@@ -176,7 +176,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
     }
 
     // 设置初始字号按钮状态
-    public void initTextSize() {
+    private void initTextSize() {
         int size = SharedprefUtil.getTextSize(this);
         if (size != 0) {
             switch (size) {

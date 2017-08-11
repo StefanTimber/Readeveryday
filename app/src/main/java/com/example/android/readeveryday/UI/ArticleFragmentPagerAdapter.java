@@ -22,7 +22,7 @@ public class ArticleFragmentPagerAdapter extends FragmentPagerAdapter {
 
     private static final int PAGE_COUNT = 2;
     private Context mContext;
-    private int[] imageResId = {R.drawable.article, R.drawable.random};
+    private final int[] imageResId = {R.drawable.article, R.drawable.random};
     private Fragment currentFragment;
 
     public ArticleFragmentPagerAdapter(FragmentManager fm, Context context) {

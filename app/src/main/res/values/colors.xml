@@ -7,14 +7,5 @@
     <color name="backgroundColor">#EDE7DA</color>
 
 
-    <color name="background_green">#bcd5bf</color>
-    <!--<color name="colorPrimary">#009688</color>-->
-    <!--<color name="colorPrimaryDark">#00796B</color>-->
-    <!--<color name="colorAccent">#CDDC39</color>-->
-    <!--<color name="textColor">#000000</color>-->
-    <!--<color name="backgroundColor">#FFFFFF</color>-->
-
-    <!--<color name="colorPrimary">#3F51B5</color>-->
-    <!--<color name="colorPrimaryDark">#303F9F</color>-->
-    <!--<color name="colorAccent">#FF4081</color>-->
+    <!--<color name="background_green">#bcd5bf</color>-->
 </resources>

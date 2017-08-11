@@ -11,9 +11,9 @@ import com.example.android.readeveryday.Util.SharedprefUtil;
 
 public class MyApplication extends Application {
 
-    public static boolean isNightMode;
+    private static boolean isNightMode;
 
-    public static boolean isRecreate;
+    private static boolean isRecreate;
 
     public static boolean getNightMode() {
         return isNightMode;

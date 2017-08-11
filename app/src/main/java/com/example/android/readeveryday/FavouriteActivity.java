@@ -64,14 +64,13 @@ public class FavouriteActivity extends AppCompatActivity {
         }
     }
 
-    public List<Data> initFavourite() {
+    private void initFavourite() {
         favouriteList.clear();
         Map<String, String> jsonDataMap = (Map<String, String>) SharedprefUtil.getAll(this);
         Gson gson = new Gson();
         for (String value : jsonDataMap.values()) {
             favouriteList.add(gson.fromJson(value, Data.class));
         }
-        return favouriteList;
     }
 
     @Override

@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by XF on 2017/4/23.
@@ -12,7 +13,7 @@ import java.util.Date;
 public class DateUtil {
 
     //    private static Calendar c = Calendar.getInstance();
-    private static SimpleDateFormat sim = new SimpleDateFormat("yyyyMMdd");
+    private static SimpleDateFormat sim = new SimpleDateFormat("yyyyMMdd", Locale.CHINA);
 
     public static String getToday() {
         Calendar c = Calendar.getInstance();
